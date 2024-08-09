@@ -467,7 +467,7 @@ def worker():
         proxy_formated = str(proxy[:10]+'*'*10) if proxy else 'Proxyless'
         with lock:
             if available is True:
-                print(f"[{Colors.GREEN}+{Colors.ENDC}] Available  : {Colors.CYAN}{name}{Colors.ENDC}, {' '*(longest_name-len(name))}RPS : {Colors.CYAN}{RPS} / s{Colors.ENDC},  resp : {Colors.CYAN}{json}{Colors.ENDC}, proxy : {Colors.CYAN}{proxy_formated}{Colors.ENDC}")
+                print(f"[{Colors.GREEN}+{Colors.ENDC}] Available  : {Colors.CYAN}{name}{Colors.ENDC}, {' '*(longest_name-len(name))}RPS : {Colors.CYAN}{RPS} / s{Colors.ENDC},  Available/Taken: {Colors.GREEN}{WORKS}{Colors.ENDC}/{Colors.RED}{TAKEN}{Colors.ENDC}, Requests: {Colors.CYAN}{REQUESTS}{Colors.ENDC}")
                 
                 with open("results/hits.txt", "a", encoding='utf-8') as f:
                     f.write(name)
@@ -476,7 +476,7 @@ def worker():
 
             elif available == "RATELIMITED":
                 
-                print(f"[{Colors.YELLOW}?{Colors.ENDC}] TIMEOUT    : {Colors.CYAN}{json}{Colors.ENDC}, {' '*(20-int(len(str(json))))}RPS : {Colors.CYAN}{RPS} / s{Colors.ENDC},  resp : {Colors.CYAN}{json}{Colors.ENDC},{' '*(18-int(len(str(json)))-1)}proxy : {Colors.CYAN}{proxy_formated}{Colors.ENDC}")
+                print(f"[{Colors.YELLOW}?{Colors.ENDC}] TIMEOUT    : {Colors.CYAN}{json}{Colors.ENDC}, {' '*(20-int(len(str(json))))}RPS : {Colors.CYAN}{RPS} / s{Colors.ENDC},  Available/Taken: {Colors.GREEN}{WORKS}{Colors.ENDC}/{Colors.RED}{TAKEN}{Colors.ENDC}, Requests: {Colors.CYAN}{REQUESTS}{Colors.ENDC}")
             
             elif available == "ERROR":
                
@@ -484,7 +484,7 @@ def worker():
                     f.write(f"{name, json, status_code}\n")
             
             else:
-                print(f"[{Colors.RED}-{Colors.ENDC}]   Taken    : {Colors.CYAN}{name}{Colors.ENDC}, {' '*(longest_name-len(name))}RPS : {Colors.CYAN}{RPS} / s{Colors.ENDC},  resp : {Colors.CYAN}{json}{Colors.ENDC},  proxy : {Colors.CYAN}{proxy_formated}{Colors.ENDC}")
+                print(f"[{Colors.RED}-{Colors.ENDC}]   Taken    : {Colors.CYAN}{name}{Colors.ENDC}, {' '*(longest_name-len(name))}RPS : {Colors.CYAN}{RPS} / s{Colors.ENDC},    Available/Taken: {Colors.GREEN}{WORKS}{Colors.ENDC}/{Colors.RED}{TAKEN}{Colors.ENDC}, Requests: {Colors.CYAN}{REQUESTS}{Colors.ENDC}")
 
         # Log all checked usernames, regardless of availability
         Logger.log(f"Checked username: {name}, Available: {available}, Response: {json}, Status Code: {status_code}")
